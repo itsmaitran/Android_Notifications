@@ -3,14 +3,21 @@ package com.lambdaschool.androidnotifications.util
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.lambdaschool.androidnotifications.ui.FullscreenActivity
 import com.lambdaschool.androidnotifications.ui.MainActivity
 
 object NotificationGenerator {
     fun getNotification(context: Context) {
+
+        val notificationIntent = Intent(context, FullscreenActivity::class.java)
+        notificationIntent.putExtra("fullscreen_from_notification", "Notification Tapped")
+        val pendingNotificationIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT)
 
         val getID = "${context.packageName}.getchannel"
 
@@ -34,6 +41,8 @@ object NotificationGenerator {
             .setSmallIcon(android.R.drawable.ic_popup_reminder)
             .setColor(Color.DKGRAY)
             .setDefaults(Notification.DEFAULT_ALL)
+            .setContentIntent(pendingNotificationIntent)
+            .setAutoCancel(true)
         notificationManager.notify(MainActivity.NOTIFICATION_ID_INSTANT, notificationBuilder.build())
     }
 }

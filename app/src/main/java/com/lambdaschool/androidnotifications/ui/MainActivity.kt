@@ -1,5 +1,7 @@
 package com.lambdaschool.androidnotifications.ui
 
+import android.app.PendingIntent
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.lambdaschool.androidnotifications.R
