@@ -9,6 +9,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.lambdaschool.androidnotifications.R
 import com.lambdaschool.androidnotifications.ui.FullscreenActivity
 import com.lambdaschool.androidnotifications.ui.MainActivity
 
@@ -18,6 +19,10 @@ object NotificationGenerator {
         val notificationIntent = Intent(context, FullscreenActivity::class.java)
         notificationIntent.putExtra("fullscreen_from_notification", "Notification Tapped")
         val pendingNotificationIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT)
+
+        val anotherIntent = Intent(context, FullscreenActivity::class.java)
+        anotherIntent.putExtra("fullscreen_from_notification", "Action Notification Tapped")
+        val pendingAnotherIntent = PendingIntent.getActivity(context, 1, anotherIntent, PendingIntent.FLAG_ONE_SHOT)
 
         val getID = "${context.packageName}.getchannel"
 
@@ -42,6 +47,7 @@ object NotificationGenerator {
             .setColor(Color.DKGRAY)
             .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingNotificationIntent)
+            .addAction(R.drawable.abc_ic_arrow_drop_right_black_24dp, "Add Action Notification", pendingAnotherIntent)
             .setAutoCancel(true)
         notificationManager.notify(MainActivity.NOTIFICATION_ID_INSTANT, notificationBuilder.build())
     }
